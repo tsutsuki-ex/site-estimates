@@ -1,0 +1,321 @@
+<title>urakare.jp システム見積書</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#EEF2EC; --surface:#FFFFFF; --surface-alt:#F4F7F0;
+  --ink:#1B2A22; --ink-soft:#55665A; --ink-faint:#8A9A8C;
+  --rule:#CBD6C4; --rule-strong:#9DB093;
+  --accent:#2F5D48; --accent-soft:#DCEADD; --accent-strong:#1F4534;
+  --stamp:#B23A2E; --stamp-soft:#F3DAD4;
+  --shadow: 0 1px 2px rgba(27,42,34,0.06), 0 8px 24px -12px rgba(27,42,34,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10160F; --surface:#171F16; --surface-alt:#1B241A;
+    --ink:#E7EFE3; --ink-soft:#A9BBA4; --ink-faint:#71856F;
+    --rule:#33422F; --rule-strong:#455A3E;
+    --accent:#7BC79C; --accent-soft:#20372A; --accent-strong:#98DCB6;
+    --stamp:#E5876E; --stamp-soft:#3A231F;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10160F; --surface:#171F16; --surface-alt:#1B241A;
+  --ink:#E7EFE3; --ink-soft:#A9BBA4; --ink-faint:#71856F;
+  --rule:#33422F; --rule-strong:#455A3E;
+  --accent:#7BC79C; --accent-soft:#20372A; --accent-strong:#98DCB6;
+  --stamp:#E5876E; --stamp-soft:#3A231F;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:15.5px; line-height:1.75; -webkit-font-smoothing:antialiased;
+}
+.sheet{ max-width:920px; margin:0 auto; padding:48px 28px 96px; }
+.mono{ font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; }
+
+/* ---------- letterhead ---------- */
+.letterhead{
+  background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+  padding:36px 36px 30px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.letterhead::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:6px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-strong));
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; margin:8px 0 14px;
+}
+h1{
+  font-family:"Shippori Mincho",serif; font-weight:700; font-size:clamp(26px,3.4vw,34px);
+  margin:0 0 6px; text-wrap:balance; color:var(--ink); letter-spacing:.01em;
+}
+.sub{ color:var(--ink-soft); font-size:14.5px; margin:0 0 26px; }
+.stat-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden; }
+.stat{ background:var(--surface); padding:14px 16px; }
+.stat .n{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:22px; color:var(--accent-strong); }
+.stat .l{ font-size:12px; color:var(--ink-faint); margin-top:2px; }
+
+/* ---------- sections ---------- */
+section{ margin-top:40px; }
+.sec-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:6px; }
+.sec-no{ font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:13px; }
+h2{ font-family:"Shippori Mincho",serif; font-size:21px; font-weight:700; margin:0; }
+.sec-desc{ color:var(--ink-soft); font-size:13.8px; margin:6px 0 20px; max-width:62ch; }
+
+/* ---------- structure table ---------- */
+.struct-table{ width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+.struct-table th{
+  text-align:left; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+  font-weight:600; padding:10px 14px; border-bottom:1px solid var(--rule); background:var(--surface-alt);
+}
+.struct-table td{ padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; font-size:14px; }
+.struct-table tr:last-child td{ border-bottom:none; }
+.struct-table .cat{ font-weight:600; white-space:nowrap; }
+.struct-table .cnt{ font-family:"IBM Plex Mono",monospace; color:var(--accent-strong); font-weight:600; white-space:nowrap; }
+.struct-table .ex{ color:var(--ink-soft); font-size:13px; }
+.struct-table .ex code{ font-family:"IBM Plex Mono",monospace; font-size:12px; background:var(--accent-soft); color:var(--accent-strong); padding:1px 5px; border-radius:3px; }
+.grp-row td{ padding-top:18px; }
+.grp-label{ font-size:12px; letter-spacing:.06em; color:var(--ink-faint); font-weight:600; }
+
+/* ---------- architecture ---------- */
+.arch{ display:flex; flex-direction:column; gap:0; }
+.layer{ background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:16px 18px; box-shadow:var(--shadow); }
+.layer-label{ font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px; }
+.modgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; }
+.mod{ background:var(--surface-alt); border:1px solid var(--rule); border-radius:4px; padding:11px 13px; }
+.mod .name{ font-weight:700; font-size:13.6px; margin-bottom:3px; }
+.mod .desc{ font-size:12.3px; color:var(--ink-soft); line-height:1.5; }
+.connector{ display:flex; justify-content:center; padding:6px 0; position:relative; }
+.connector::before{ content:""; position:absolute; top:0; bottom:0; left:50%; width:1px; background:var(--rule-strong); }
+.connector span{ position:relative; background:var(--bg); padding:2px 10px; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); border:1px solid var(--rule); border-radius:20px; }
+
+/* ---------- estimate ledger ---------- */
+.ledger{ background:var(--surface); border:1px solid var(--rule); border-radius:4px; box-shadow:var(--shadow); overflow:hidden; }
+.ledger table{ width:100%; border-collapse:collapse; }
+.ledger th{
+  text-align:left; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
+  font-weight:600; padding:10px 14px; border-bottom:1px solid var(--rule); background:var(--surface-alt);
+}
+.ledger th.num, .ledger td.num{ text-align:right; }
+.ledger td{ padding:10px 14px; border-bottom:1px solid var(--rule); font-size:13.6px; }
+.ledger .role{ display:block; font-size:11.5px; color:var(--ink-faint); margin-top:1px; }
+.ledger tbody tr:hover{ background:var(--surface-alt); }
+.ledger tfoot td{ border-bottom:none; padding:11px 14px; font-family:"IBM Plex Mono",monospace; }
+.ledger tfoot tr.total td{ font-size:17px; font-weight:700; color:var(--accent-strong); border-top:2px solid var(--rule-strong); padding-top:16px; }
+
+.stamp-wrap{ display:flex; align-items:center; justify-content:flex-end; gap:14px; padding:14px 18px 20px; }
+.stamp-badge{
+  width:64px; height:64px; border-radius:50%; border:2.5px solid var(--stamp); color:var(--stamp);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  font-family:"Shippori Mincho",serif; font-weight:700; font-size:13px; letter-spacing:.05em; text-align:center;
+  transform:rotate(-8deg); background:var(--stamp-soft); line-height:1.3;
+}
+.stamp-note{ font-size:12.3px; color:var(--ink-soft); text-align:right; max-width:34ch; }
+
+.duration-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden; margin-top:18px; }
+.dur{ background:var(--surface); padding:14px 16px; }
+.dur .n{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:18px; color:var(--accent-strong); }
+.dur .l{ font-size:12px; color:var(--ink-faint); margin-top:2px; }
+
+/* ---------- assumptions ---------- */
+.notes{ background:var(--surface-alt); border:1px solid var(--rule); border-radius:4px; padding:18px 20px; }
+.notes h3{ font-size:13.5px; margin:0 0 10px; color:var(--ink); font-weight:700; }
+.notes ul{ margin:0; padding-left:1.15em; }
+.notes li{ margin-bottom:6px; font-size:13.4px; color:var(--ink-soft); }
+.notes li::marker{ color:var(--accent); }
+.notes + .notes{ margin-top:14px; }
+
+footer{ margin-top:48px; padding-top:18px; border-top:1px solid var(--rule); font-size:11.8px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+
+@media (max-width:640px){
+  .stat-strip{ grid-template-columns:repeat(2,1fr); }
+  .duration-strip{ grid-template-columns:1fr; }
+  .struct-table{ display:block; overflow-x:auto; }
+}
+</style>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <div class="eyebrow">御見積書 draft &nbsp;/&nbsp; System Estimate</div>
+    <h1>urakare.jp サイト構造分析 &amp; システム構成見積もり</h1>
+    <p class="sub">SEOクロールレポート（2026-08-19取得・108ページ）をもとに、サイト構造からシステムの機能構成を逆引きし、開発規模を概算したものです。</p>
+    <div class="stat-strip">
+      <div class="stat"><div class="n mono">108</div><div class="l">クロール済みページ数</div></div>
+      <div class="stat"><div class="n mono">8</div><div class="l">機能領域（カテゴリ）</div></div>
+      <div class="stat"><div class="n mono">9</div><div class="l">推定システムモジュール</div></div>
+      <div class="stat"><div class="n mono">約276</div><div class="l">概算人日（ROM）</div></div>
+    </div>
+  </div>
+
+  <!-- ============ 1. サイト構造 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">01</span><h2>サイト構造</h2></div>
+    <p class="sec-desc">URLパスとタイトルのパターンから108ページを8つの機能領域に分類しました。パスの階層（<code class="mono" style="font-size:12px">/therapist/{id}/schedule/reserve</code> 等）が、そのままシステムの機能単位に対応しています。</p>
+
+    <table class="struct-table">
+      <thead>
+        <tr><th style="width:26%">機能領域</th><th style="width:10%">P数</th><th>代表ページ（タイトル / URLパターン）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cat">トップ・出勤情報</td><td class="cnt">5</td>
+          <td class="ex">トップ「東京の女風・女性用風俗なら【東京裏彼氏】」<code>/</code>、本日出勤 <code>/today</code>、人気ランキング <code>/ranking?range=month</code></td>
+        </tr>
+        <tr>
+          <td class="cat">セラピスト（予約導線）</td><td class="cnt">27</td>
+          <td class="ex">一覧 <code>/therapist</code>、詳細 <code>/therapist/{id}</code>、口コミ <code>/therapist/{id}/reviews</code>、写メ日記一覧・詳細 <code>/therapist/{id}/diary[/{uuid}]</code>、スケジュール <code>/therapist/{id}/schedule</code>、予約フォーム <code>/therapist/{id}/schedule/reserve?date=&time=&course=</code></td>
+        </tr>
+        <tr>
+          <td class="cat">検索・絞り込み</td><td class="cnt">20</td>
+          <td class="ex">こだわり検索 <code>/search</code>、エリア別検索 <code>/search?area=新宿</code> など18エリア、総合口コミ <code>/reviews</code></td>
+        </tr>
+        <tr>
+          <td class="cat">会員ガイド・料金</td><td class="cnt">4</td>
+          <td class="ex">初めての方へ <code>/guide</code>、利用場所ガイド <code>/location-guide</code>、料金表 <code>/pricing</code>、FAQ <code>/faq</code></td>
+        </tr>
+        <tr>
+          <td class="cat">採用・モニター</td><td class="cnt">2</td>
+          <td class="ex">セラピスト求人 <code>/recruit</code>、モニター募集 <code>/monitor</code></td>
+        </tr>
+        <tr>
+          <td class="cat">紹介プログラム</td><td class="cnt">1</td>
+          <td class="ex">友達紹介 <code>/referral</code>（2名利用で¥5,000 OFF）</td>
+        </tr>
+        <tr>
+          <td class="cat">コラム／メディア（ウラカレコラム）</td><td class="cnt">46</td>
+          <td class="ex">トップ <code>/column</code>、全記事 <code>/column/all</code>、編集ポリシー、6カテゴリ（jofu-guide / self-pleasure / night-care / body-care / industry / interview）、記事詳細33本、著者ページ、インタビュイープロフィール3件</td>
+        </tr>
+        <tr>
+          <td class="cat">法務・規約</td><td class="cnt">3</td>
+          <td class="ex">利用規約 <code>/terms</code>、プライバシーポリシー <code>/privacy</code>、特定商取引法表記 <code>/tokushoho</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--ink-faint);margin-top:10px">※ 今回のクロールで検出されたセラピストIDは <span class="mono">1 / 4 / 5</span> の3名のみ（サンプリング起因の可能性あり）。テンプレート単価はセラピスト数に依存しないため見積もりへの影響はありません。</p>
+  </section>
+
+  <!-- ============ 2. システム構成 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">02</span><h2>推定システム構成</h2></div>
+    <p class="sec-desc">上記のページ構造から、このサイトを裏側で動かすために必要な機能モジュールを逆引きしました。予約・スケジュール管理を中核に、集客用のコラムCMSと検索・ランキングが接続する構成です。</p>
+
+    <div class="arch">
+      <div class="layer">
+        <div class="layer-label">フロントエンド層</div>
+        <div class="modgrid">
+          <div class="mod"><div class="name">公開サイト（Web / SP）</div><div class="desc">トップ・検索・セラピスト詳細・予約・コラムのSSR/SSGレンダリング、SEOメタ管理</div></div>
+          <div class="mod"><div class="name">管理画面（バックオフィス）</div><div class="desc">セラピスト・予約・記事・口コミ・求人の運用管理UI</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>API</span></div>
+      <div class="layer">
+        <div class="layer-label">アプリケーション層 — 機能モジュール</div>
+        <div class="modgrid">
+          <div class="mod"><div class="name">① セラピスト管理</div><div class="desc">プロフィール・写メ日記（画像）・稼働ステータスのCRUD</div></div>
+          <div class="mod"><div class="name">② 予約・スケジュール</div><div class="desc">空き枠カレンダー、コース/時間選択、予約確定フロー</div></div>
+          <div class="mod"><div class="name">③ 検索・絞り込み</div><div class="desc">エリア×条件のファセット検索（19パターン相当）</div></div>
+          <div class="mod"><div class="name">④ ランキング集計</div><div class="desc">指名・口コミ実績のバッチ集計（日次/週次/月次）</div></div>
+          <div class="mod"><div class="name">⑤ 口コミ・レビュー</div><div class="desc">投稿・承認モデレーション、セラピスト別集計</div></div>
+          <div class="mod"><div class="name">⑥ コラムCMS</div><div class="desc">記事・カテゴリ（6）・著者・関連記事、全46ページ</div></div>
+          <div class="mod"><div class="name">⑦ 紹介・特典</div><div class="desc">紹介コード発行、割引適用のトラッキング</div></div>
+          <div class="mod"><div class="name">⑧ 採用エントリー</div><div class="desc">求人・モニター応募フォーム、通知連携</div></div>
+          <div class="mod"><div class="name">⑨ 外部連携</div><div class="desc">LINE公式アカウント（24時間受付）、アクセス解析</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>永続化</span></div>
+      <div class="layer">
+        <div class="layer-label">データ・インフラ層</div>
+        <div class="modgrid">
+          <div class="mod"><div class="name">RDB</div><div class="desc">セラピスト・予約・口コミ・記事などのマスタデータ</div></div>
+          <div class="mod"><div class="name">検索インデックス / キャッシュ</div><div class="desc">エリア検索の高速化、ランキング結果キャッシュ</div></div>
+          <div class="mod"><div class="name">画像/CDN</div><div class="desc">写メ日記・コラム記事画像の配信最適化</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. 見積もり ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">03</span><h2>開発規模・見積もり（概算 / ROM）</h2></div>
+    <p class="sec-desc">上記9モジュールをゼロから構築する前提の概算工数です。正式見積もりには要件定義フェーズでの機能確定が必要です。</p>
+
+    <div class="ledger">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:44%">項目</th>
+            <th class="num" style="width:14%">人日</th>
+            <th class="num" style="width:18%">単価</th>
+            <th class="num" style="width:24%">金額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>要件定義・基本設計<span class="role">PM / ディレクター</span></td><td class="num mono">15</td><td class="num mono">¥80,000</td><td class="num mono">¥1,200,000</td></tr>
+          <tr><td>UI/UXデザイン（主要テンプレート約20画面）<span class="role">デザイナー</span></td><td class="num mono">25</td><td class="num mono">¥65,000</td><td class="num mono">¥1,625,000</td></tr>
+          <tr><td>フロントエンド実装（共通基盤・レスポンシブ）<span class="role">フロントエンドエンジニア</span></td><td class="num mono">35</td><td class="num mono">¥70,000</td><td class="num mono">¥2,450,000</td></tr>
+          <tr><td>①②⑤ セラピスト管理・予約・口コミエンジン<span class="role">バックエンドエンジニア</span></td><td class="num mono">45</td><td class="num mono">¥75,000</td><td class="num mono">¥3,375,000</td></tr>
+          <tr><td>③ 検索・絞り込み機能<span class="role">バックエンドエンジニア</span></td><td class="num mono">15</td><td class="num mono">¥75,000</td><td class="num mono">¥1,125,000</td></tr>
+          <tr><td>④ ランキング集計バッチ・キャッシュ<span class="role">バックエンドエンジニア</span></td><td class="num mono">10</td><td class="num mono">¥75,000</td><td class="num mono">¥750,000</td></tr>
+          <tr><td>⑥ コラムCMS連携・記事テンプレート<span class="role">フロントエンドエンジニア</span></td><td class="num mono">20</td><td class="num mono">¥70,000</td><td class="num mono">¥1,400,000</td></tr>
+          <tr><td>⑦ 紹介・特典プログラム<span class="role">バックエンドエンジニア</span></td><td class="num mono">8</td><td class="num mono">¥75,000</td><td class="num mono">¥600,000</td></tr>
+          <tr><td>⑧ 採用・モニター応募フォーム<span class="role">フロントエンドエンジニア</span></td><td class="num mono">6</td><td class="num mono">¥70,000</td><td class="num mono">¥420,000</td></tr>
+          <tr><td>管理画面（バックオフィス一式）<span class="role">バックエンドエンジニア</span></td><td class="num mono">35</td><td class="num mono">¥75,000</td><td class="num mono">¥2,625,000</td></tr>
+          <tr><td>⑨ LINE連携・外部通知<span class="role">バックエンドエンジニア</span></td><td class="num mono">10</td><td class="num mono">¥75,000</td><td class="num mono">¥750,000</td></tr>
+          <tr><td>インフラ構築・CI/CD<span class="role">バックエンドエンジニア</span></td><td class="num mono">12</td><td class="num mono">¥75,000</td><td class="num mono">¥900,000</td></tr>
+          <tr><td>QA・テスト・SEO検証<span class="role">QAエンジニア</span></td><td class="num mono">20</td><td class="num mono">¥55,000</td><td class="num mono">¥1,100,000</td></tr>
+          <tr><td>PM進行管理（全体通し）<span class="role">PM / ディレクター</span></td><td class="num mono">20</td><td class="num mono">¥80,000</td><td class="num mono">¥1,600,000</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="3">小計</td><td class="num">¥19,920,000</td></tr>
+          <tr><td colspan="3">予備費（10%）</td><td class="num">¥1,992,000</td></tr>
+          <tr><td colspan="3">消費税（10%）</td><td class="num">¥2,191,200</td></tr>
+          <tr class="total"><td colspan="3">合計（税込・概算）</td><td class="num">¥24,103,200</td></tr>
+        </tfoot>
+      </table>
+      <div class="stamp-wrap">
+        <div class="stamp-note">正式見積は要件定義フェーズ完了後に確定します。本額は108ページの構造分析のみに基づくROM（概算）です。</div>
+        <div class="stamp-badge">見積<br>ROM</div>
+      </div>
+    </div>
+
+    <div class="duration-strip">
+      <div class="dur"><div class="n mono">約276人日</div><div class="l">総工数</div></div>
+      <div class="dur"><div class="n mono">4〜5ヶ月</div><div class="l">想定開発期間（7名体制）</div></div>
+      <div class="dur"><div class="n mono">¥150,000〜300,000/月</div><div class="l">参考：保守・インフラ運用費</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 前提条件 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">04</span><h2>前提条件・スコープ外</h2></div>
+
+    <div class="notes">
+      <h3>見積もりの前提</h3>
+      <ul>
+        <li>URL・タイトル・見出し構造から機能を逆引きした概算であり、実際の内部仕様（決済有無、承認フロー、外部システム連携の詳細等）は未確認です。</li>
+        <li>セラピスト・記事・エリアの件数は今回クロールした範囲（セラピスト3名、記事33本）を基準としており、実件数が増えてもテンプレート単価には影響しません。</li>
+        <li>チーム体制はPM1名・デザイナー1名・フロントエンド2名・バックエンド2名・QA1名（計7名）を想定。</li>
+      </ul>
+    </div>
+    <div class="notes">
+      <h3>スコープ外（別途見積）</h3>
+      <ul>
+        <li>オンライン決済機能（本業態では来店時現金決済が一般的なため未算入）</li>
+        <li>写真・記事などのコンテンツ制作費（撮影・執筆・監修）</li>
+        <li>広告運用・集客施策、既存データの移行作業</li>
+        <li>公開後の月次保守・運用（上表の参考値を目安に別途契約）</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>データソース: urakare.jp SEOクロールレポート（2026-08-19取得・108ページ）</span>
+    <span class="mono">Draft estimate — internal use</span>
+  </footer>
+
+</div>

@@ -1,0 +1,332 @@
+<title>TOP CLASS 東京 システム見積書</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#EEF2EC; --surface:#FFFFFF; --surface-alt:#F4F7F0;
+  --ink:#1B2A22; --ink-soft:#55665A; --ink-faint:#8A9A8C;
+  --rule:#CBD6C4; --rule-strong:#9DB093;
+  --accent:#2F5D48; --accent-soft:#DCEADD; --accent-strong:#1F4534;
+  --stamp:#B23A2E; --stamp-soft:#F3DAD4;
+  --shadow: 0 1px 2px rgba(27,42,34,0.06), 0 8px 24px -12px rgba(27,42,34,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10160F; --surface:#171F16; --surface-alt:#1B241A;
+    --ink:#E7EFE3; --ink-soft:#A9BBA4; --ink-faint:#71856F;
+    --rule:#33422F; --rule-strong:#455A3E;
+    --accent:#7BC79C; --accent-soft:#20372A; --accent-strong:#98DCB6;
+    --stamp:#E5876E; --stamp-soft:#3A231F;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10160F; --surface:#171F16; --surface-alt:#1B241A;
+  --ink:#E7EFE3; --ink-soft:#A9BBA4; --ink-faint:#71856F;
+  --rule:#33422F; --rule-strong:#455A3E;
+  --accent:#7BC79C; --accent-soft:#20372A; --accent-strong:#98DCB6;
+  --stamp:#E5876E; --stamp-soft:#3A231F;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:15.5px; line-height:1.75; -webkit-font-smoothing:antialiased;
+}
+.sheet{ max-width:920px; margin:0 auto; padding:48px 28px 96px; }
+.mono{ font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; }
+
+.letterhead{
+  background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+  padding:36px 36px 30px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.letterhead::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:6px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-strong));
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; margin:8px 0 14px;
+}
+h1{
+  font-family:"Shippori Mincho",serif; font-weight:700; font-size:clamp(26px,3.4vw,34px);
+  margin:0 0 6px; text-wrap:balance; color:var(--ink); letter-spacing:.01em;
+}
+.sub{ color:var(--ink-soft); font-size:14.5px; margin:0 0 26px; }
+.stat-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden; }
+.stat{ background:var(--surface); padding:14px 16px; }
+.stat .n{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:22px; color:var(--accent-strong); }
+.stat .l{ font-size:12px; color:var(--ink-faint); margin-top:2px; }
+
+section{ margin-top:40px; }
+.sec-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:6px; }
+.sec-no{ font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:13px; }
+h2{ font-family:"Shippori Mincho",serif; font-size:21px; font-weight:700; margin:0; }
+.sec-desc{ color:var(--ink-soft); font-size:13.8px; margin:6px 0 20px; max-width:64ch; }
+
+.struct-table{ width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+.struct-table th{
+  text-align:left; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+  font-weight:600; padding:10px 14px; border-bottom:1px solid var(--rule); background:var(--surface-alt);
+}
+.struct-table td{ padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; font-size:14px; }
+.struct-table tr:last-child td{ border-bottom:none; }
+.struct-table .cat{ font-weight:600; white-space:nowrap; }
+.struct-table .cnt{ font-family:"IBM Plex Mono",monospace; color:var(--accent-strong); font-weight:600; white-space:nowrap; }
+.struct-table .ex{ color:var(--ink-soft); font-size:13px; }
+.struct-table .ex code{ font-family:"IBM Plex Mono",monospace; font-size:12px; background:var(--accent-soft); color:var(--accent-strong); padding:1px 5px; border-radius:3px; }
+
+.arch{ display:flex; flex-direction:column; gap:0; }
+.layer{ background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:16px 18px; box-shadow:var(--shadow); }
+.layer-label{ font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px; }
+.modgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; }
+.mod{ background:var(--surface-alt); border:1px solid var(--rule); border-radius:4px; padding:11px 13px; }
+.mod .name{ font-weight:700; font-size:13.6px; margin-bottom:3px; }
+.mod .desc{ font-size:12.3px; color:var(--ink-soft); line-height:1.5; }
+.connector{ display:flex; justify-content:center; padding:6px 0; position:relative; }
+.connector::before{ content:""; position:absolute; top:0; bottom:0; left:50%; width:1px; background:var(--rule-strong); }
+.connector span{ position:relative; background:var(--bg); padding:2px 10px; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); border:1px solid var(--rule); border-radius:20px; }
+
+.ledger{ background:var(--surface); border:1px solid var(--rule); border-radius:4px; box-shadow:var(--shadow); overflow:hidden; }
+.ledger table{ width:100%; border-collapse:collapse; }
+.ledger th{
+  text-align:left; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
+  font-weight:600; padding:10px 14px; border-bottom:1px solid var(--rule); background:var(--surface-alt);
+}
+.ledger th.num, .ledger td.num{ text-align:right; }
+.ledger td{ padding:10px 14px; border-bottom:1px solid var(--rule); font-size:13.6px; }
+.ledger .role{ display:block; font-size:11.5px; color:var(--ink-faint); margin-top:1px; }
+.ledger tbody tr:hover{ background:var(--surface-alt); }
+.ledger tfoot td{ border-bottom:none; padding:11px 14px; font-family:"IBM Plex Mono",monospace; }
+.ledger tfoot tr.total td{ font-size:17px; font-weight:700; color:var(--accent-strong); border-top:2px solid var(--rule-strong); padding-top:16px; }
+
+.stamp-wrap{ display:flex; align-items:center; justify-content:flex-end; gap:14px; padding:14px 18px 20px; }
+.stamp-badge{
+  width:64px; height:64px; border-radius:50%; border:2.5px solid var(--stamp); color:var(--stamp);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  font-family:"Shippori Mincho",serif; font-weight:700; font-size:13px; letter-spacing:.05em; text-align:center;
+  transform:rotate(-8deg); background:var(--stamp-soft); line-height:1.3;
+}
+.stamp-note{ font-size:12.3px; color:var(--ink-soft); text-align:right; max-width:34ch; }
+
+.duration-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:3px; overflow:hidden; margin-top:18px; }
+.dur{ background:var(--surface); padding:14px 16px; }
+.dur .n{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:18px; color:var(--accent-strong); }
+.dur .l{ font-size:12px; color:var(--ink-faint); margin-top:2px; }
+
+.notes{ background:var(--surface-alt); border:1px solid var(--rule); border-radius:4px; padding:18px 20px; }
+.notes h3{ font-size:13.5px; margin:0 0 10px; color:var(--ink); font-weight:700; }
+.notes ul{ margin:0; padding-left:1.15em; }
+.notes li{ margin-bottom:6px; font-size:13.4px; color:var(--ink-soft); }
+.notes li::marker{ color:var(--accent); }
+.notes + .notes{ margin-top:14px; }
+.notes.flag{ border-color:var(--stamp); background:var(--stamp-soft); }
+.notes.flag h3{ color:var(--stamp); }
+.notes.flag li::marker{ color:var(--stamp); }
+
+footer{ margin-top:48px; padding-top:18px; border-top:1px solid var(--rule); font-size:11.8px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+
+@media (max-width:640px){
+  .stat-strip{ grid-template-columns:repeat(2,1fr); }
+  .duration-strip{ grid-template-columns:1fr; }
+  .struct-table{ display:block; overflow-x:auto; }
+}
+</style>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <div class="eyebrow">御見積書 draft &nbsp;/&nbsp; System Estimate</div>
+    <h1>TOP CLASS 東京 サイト構造分析 &amp; システム構成見積もり</h1>
+    <p class="sub">SEOクロールレポート（2026-08-20取得・103ページ）をもとに、サイト構造からシステムの機能構成を逆引きし、開発規模を概算したものです。</p>
+    <div class="stat-strip">
+      <div class="stat"><div class="n mono">103</div><div class="l">クロール済みページ数</div></div>
+      <div class="stat"><div class="n mono">3</div><div class="l">展開店舗（東京／渋谷／大阪）</div></div>
+      <div class="stat"><div class="n mono">30</div><div class="l">検出セラピスト数</div></div>
+      <div class="stat"><div class="n mono">約280</div><div class="l">概算人日（ROM）</div></div>
+    </div>
+  </div>
+
+  <!-- ============ 1. サイト構造 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">01</span><h2>サイト構造</h2></div>
+    <p class="sec-desc">URLパスとタイトルのパターンから103ページを9つの機能領域に分類しました。最大の特徴は<strong>東京本店・渋谷店・大阪店の3店舗を横断する全国ランキング</strong>と、<strong>セラピストのランク制度（シルバー→ゴールド→プラチナ→ダイヤモンド）に連動したお知らせ（49件）</strong>です。</p>
+
+    <table class="struct-table">
+      <thead>
+        <tr><th style="width:26%">機能領域</th><th style="width:10%">P数</th><th>代表ページ（タイトル / URLパターン）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cat">トップ・エントリー</td><td class="cnt">2</td>
+          <td class="ex">「東京女性用風俗・女風《TOP CLASS 東京》」<code>/</code> <code>/top</code></td>
+        </tr>
+        <tr>
+          <td class="cat">セラピスト（一覧・プロフィール）</td><td class="cnt">31</td>
+          <td class="ex">在籍セラピスト一覧 <code>/therapist</code>、個別プロフィール <code>/therapist/{slug}</code> ×30名（開発用テンプレページ1件含む）</td>
+        </tr>
+        <tr>
+          <td class="cat">出勤情報・店舗別／全国ランキング</td><td class="cnt">7</td>
+          <td class="ex">出勤情報 <code>/schedule</code>、東京本店 <code>/ranking-tokyo</code>、渋谷店 <code>/ranking-shibuya</code>、大阪店 <code>/ranking-osaka</code>、全国 <code>/ranking-national</code>、前月 <code>/ranking-previous</code></td>
+        </tr>
+        <tr>
+          <td class="cat">お知らせ（ランク昇格・新人デビュー等）</td><td class="cnt">50</td>
+          <td class="ex">一覧 <code>/news</code>、詳細 <code>/news/{slug}</code> ×49（シルバー12件・ゴールド10件・プラチナ5件・ダイヤモンド2件・新人デビュー9件・キャンペーン等11件）</td>
+        </tr>
+        <tr>
+          <td class="cat">料金・予約・検索</td><td class="cnt">3</td>
+          <td class="ex">料金システム <code>/price</code>、WEB予約 <code>/reservation</code>、検索 <code>/search</code></td>
+        </tr>
+        <tr>
+          <td class="cat">利用ガイド・お問い合わせ</td><td class="cnt">5</td>
+          <td class="ex">よくある質問 <code>/faq</code>、ラブホテル案内 <code>/hotel</code>、ご利用方法 <code>/service</code>、ご利用規約 <code>/terms</code>、お問い合わせ <code>/contact</code></td>
+        </tr>
+        <tr>
+          <td class="cat">写メ日記・動画</td><td class="cnt">2</td>
+          <td class="ex">写メ日記 <code>/blog</code>、動画紹介 <code>/動画紹介</code>（いずれも一覧ページのみ検出）</td>
+        </tr>
+        <tr>
+          <td class="cat">口コミ</td><td class="cnt">1</td>
+          <td class="ex">口コミ <code>/review</code></td>
+        </tr>
+        <tr>
+          <td class="cat">採用</td><td class="cnt">1</td>
+          <td class="ex">求人案内 <code>/recruit</code></td>
+        </tr>
+        <tr>
+          <td class="cat">CMS（管理画面と推定）</td><td class="cnt">1</td>
+          <td class="ex"><code>/cms</code>（公開クロールで検出。要アクセス制御確認）</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ 2. システム構成 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">02</span><h2>推定システム構成</h2></div>
+    <p class="sec-desc">セラピスト管理とランク制度を中核に、3店舗＋全国を横断するランキング集計、ランクアップに連動して自動的にお知らせを配信する仕組みが特徴的な構成です。</p>
+
+    <div class="arch">
+      <div class="layer">
+        <div class="layer-label">フロントエンド層</div>
+        <div class="modgrid">
+          <div class="mod"><div class="name">公開サイト（Web / SP）</div><div class="desc">トップ・店舗別ランキング・プロフィール・お知らせのSSR/SSGレンダリング、SEOメタ管理</div></div>
+          <div class="mod"><div class="name">管理画面（バックオフィス）</div><div class="desc">セラピスト・ランク・店舗・予約・口コミ・お知らせの運用管理UI</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>API</span></div>
+      <div class="layer">
+        <div class="layer-label">アプリケーション層 — 機能モジュール</div>
+        <div class="modgrid">
+          <div class="mod"><div class="name">① セラピスト管理・ランク制度</div><div class="desc">30名のプロフィールCRUD、シルバー〜ダイヤモンドの4段階ランク管理</div></div>
+          <div class="mod"><div class="name">② 複数店舗・ランキング集計</div><div class="desc">東京／渋谷／大阪の店舗マスタ、店舗別＋全国横断ランキングの集計バッチ</div></div>
+          <div class="mod"><div class="name">③ 出勤スケジュール管理</div><div class="desc">店舗別の出勤情報表示</div></div>
+          <div class="mod"><div class="name">④ 料金・予約・検索</div><div class="desc">料金表、WEB予約フォーム、検索UI</div></div>
+          <div class="mod"><div class="name">⑤ 口コミシステム</div><div class="desc">投稿・一覧表示</div></div>
+          <div class="mod"><div class="name">⑥ お知らせ（ランク連動配信）</div><div class="desc">ランクアップ・新人デビュー等を自動的に告知するCMS（計50ページ）</div></div>
+          <div class="mod"><div class="name">⑦ 写メ日記・動画コンテンツ</div><div class="desc">投稿・配信（個別記事は今回未検出、要件次第で規模拡大の可能性）</div></div>
+          <div class="mod"><div class="name">⑧ 利用ガイド・お問い合わせ</div><div class="desc">FAQ・ホテル案内・利用方法・規約・問い合わせフォーム</div></div>
+          <div class="mod"><div class="name">⑨ 採用エントリー</div><div class="desc">求人ページ・応募導線</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>永続化</span></div>
+      <div class="layer">
+        <div class="layer-label">データ・インフラ層</div>
+        <div class="modgrid">
+          <div class="mod"><div class="name">RDB</div><div class="desc">店舗・セラピスト・ランク・予約・口コミ・お知らせのマスタデータ</div></div>
+          <div class="mod"><div class="name">集計バッチ / キャッシュ</div><div class="desc">店舗別・全国ランキングの定期集計と結果キャッシュ</div></div>
+          <div class="mod"><div class="name">画像/動画配信・CDN</div><div class="desc">プロフィール写真・動画紹介コンテンツの配信最適化</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. 見積もり ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">03</span><h2>開発規模・見積もり（概算 / ROM）</h2></div>
+    <p class="sec-desc">上記9モジュールをゼロから構築する前提の概算工数です。3店舗構成とランク連動お知らせが工数の主な増加要因です。正式見積もりには要件定義フェーズでの機能確定が必要です。</p>
+
+    <div class="ledger">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:44%">項目</th>
+            <th class="num" style="width:14%">人日</th>
+            <th class="num" style="width:18%">単価</th>
+            <th class="num" style="width:24%">金額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>要件定義・基本設計<span class="role">PM / ディレクター</span></td><td class="num mono">16</td><td class="num mono">¥80,000</td><td class="num mono">¥1,280,000</td></tr>
+          <tr><td>UI/UXデザイン（主要テンプレート約16画面）<span class="role">デザイナー</span></td><td class="num mono">22</td><td class="num mono">¥65,000</td><td class="num mono">¥1,430,000</td></tr>
+          <tr><td>フロントエンド実装（共通基盤・レスポンシブ）<span class="role">フロントエンドエンジニア</span></td><td class="num mono">30</td><td class="num mono">¥70,000</td><td class="num mono">¥2,100,000</td></tr>
+          <tr><td>① セラピスト管理・ランク制度<span class="role">バックエンドエンジニア</span></td><td class="num mono">26</td><td class="num mono">¥75,000</td><td class="num mono">¥1,950,000</td></tr>
+          <tr><td>② 複数店舗・ランキング集計（3店舗＋全国）<span class="role">バックエンドエンジニア</span></td><td class="num mono">18</td><td class="num mono">¥75,000</td><td class="num mono">¥1,350,000</td></tr>
+          <tr><td>③ 出勤スケジュール管理<span class="role">バックエンドエンジニア</span></td><td class="num mono">8</td><td class="num mono">¥75,000</td><td class="num mono">¥600,000</td></tr>
+          <tr><td>④ 料金・予約・検索機能<span class="role">バックエンドエンジニア</span></td><td class="num mono">14</td><td class="num mono">¥75,000</td><td class="num mono">¥1,050,000</td></tr>
+          <tr><td>⑤ 口コミシステム<span class="role">バックエンドエンジニア</span></td><td class="num mono">10</td><td class="num mono">¥75,000</td><td class="num mono">¥750,000</td></tr>
+          <tr><td>⑥ お知らせ（ランク連動配信CMS）<span class="role">バックエンドエンジニア</span></td><td class="num mono">16</td><td class="num mono">¥75,000</td><td class="num mono">¥1,200,000</td></tr>
+          <tr><td>⑦ 写メ日記・動画コンテンツ管理<span class="role">バックエンドエンジニア</span></td><td class="num mono">12</td><td class="num mono">¥75,000</td><td class="num mono">¥900,000</td></tr>
+          <tr><td>⑧ 利用ガイド・お問い合わせ<span class="role">フロントエンドエンジニア</span></td><td class="num mono">10</td><td class="num mono">¥70,000</td><td class="num mono">¥700,000</td></tr>
+          <tr><td>⑨ 採用ページ<span class="role">フロントエンドエンジニア</span></td><td class="num mono">4</td><td class="num mono">¥70,000</td><td class="num mono">¥280,000</td></tr>
+          <tr><td>管理画面（バックオフィス一式）<span class="role">バックエンドエンジニア</span></td><td class="num mono">40</td><td class="num mono">¥75,000</td><td class="num mono">¥3,000,000</td></tr>
+          <tr><td>インフラ構築・CI/CD・店舗別権限設計<span class="role">バックエンドエンジニア</span></td><td class="num mono">14</td><td class="num mono">¥75,000</td><td class="num mono">¥1,050,000</td></tr>
+          <tr><td>QA・テスト・SEO検証<span class="role">QAエンジニア</span></td><td class="num mono">20</td><td class="num mono">¥55,000</td><td class="num mono">¥1,100,000</td></tr>
+          <tr><td>PM進行管理（全体通し）<span class="role">PM / ディレクター</span></td><td class="num mono">20</td><td class="num mono">¥80,000</td><td class="num mono">¥1,600,000</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="3">小計</td><td class="num">¥20,340,000</td></tr>
+          <tr><td colspan="3">予備費（10%）</td><td class="num">¥2,034,000</td></tr>
+          <tr><td colspan="3">消費税（10%）</td><td class="num">¥2,237,400</td></tr>
+          <tr class="total"><td colspan="3">合計（税込・概算）</td><td class="num">¥24,611,400</td></tr>
+        </tfoot>
+      </table>
+      <div class="stamp-wrap">
+        <div class="stamp-note">正式見積は要件定義フェーズ完了後に確定します。本額は103ページの構造分析のみに基づくROM（概算）です。</div>
+        <div class="stamp-badge">見積<br>ROM</div>
+      </div>
+    </div>
+
+    <div class="duration-strip">
+      <div class="dur"><div class="n mono">約280人日</div><div class="l">総工数</div></div>
+      <div class="dur"><div class="n mono">4〜5ヶ月</div><div class="l">想定開発期間（7名体制）</div></div>
+      <div class="dur"><div class="n mono">¥170,000〜320,000/月</div><div class="l">参考：保守・インフラ運用費</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 前提条件 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-no mono">04</span><h2>前提条件・スコープ外</h2></div>
+
+    <div class="notes flag">
+      <h3>要確認事項</h3>
+      <ul>
+        <li><code class="mono" style="font-size:12px">/cms</code> という公開URLが検出されています。管理画面のログイン導線が同一ドメイン上に公開されている可能性があり、アクセス制御（IP制限・認証）の状況を要確認です。</li>
+        <li><code class="mono" style="font-size:12px">/blog</code>（写メ日記）・<code class="mono" style="font-size:12px">/search</code> は個別コンテンツURLが検出されず一覧ページのみでした。JavaScriptによる動的読み込みで実際にはより多くのページが存在する可能性があり、その場合はモジュール⑦・④の工数が増加します。</li>
+      </ul>
+    </div>
+    <div class="notes">
+      <h3>見積もりの前提</h3>
+      <ul>
+        <li>URL・タイトル構造から機能を逆引きした概算であり、実際の内部仕様（決済有無、店舗ごとの権限分離の粒度等）は未確認です。</li>
+        <li>セラピスト30名（開発用テンプレページ1件含む）、お知らせ49件は今回クロールした実件数です。件数はテンプレート単価に影響しません。</li>
+        <li>チーム体制はPM1名・デザイナー1名・フロントエンド2名・バックエンド2名・QA1名（計7名）を想定。</li>
+      </ul>
+    </div>
+    <div class="notes">
+      <h3>スコープ外（別途見積）</h3>
+      <ul>
+        <li>オンライン決済機能（本業態では来店時現金決済が一般的なため未算入。<code class="mono" style="font-size:12px">/news/credit_news</code> にクレジットカード決済関連のお知らせがあり、詳細要件次第で追加検討が必要）</li>
+        <li>プロフィール写真・動画紹介コンテンツの撮影／制作費</li>
+        <li>広告運用・集客施策、既存データ（セラピスト・ランク履歴・口コミ）の移行作業</li>
+        <li>公開後の月次保守・運用（上表の参考値を目安に別途契約）</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>データソース: topclass-tokyo.com SEOクロールレポート（2026-08-20取得・103ページ）</span>
+    <span class="mono">Draft estimate — internal use</span>
+  </footer>
+
+</div>
